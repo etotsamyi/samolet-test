@@ -10,6 +10,7 @@ import {
 } from "react-router-dom";
 import { initializeElements } from './store/store';
 import { Main } from './Pages/Main';
+import { InnerCard } from './Pages/InnerCard';
 export const App: FC = () => {
 
   useEffect(() => {
@@ -20,12 +21,8 @@ export const App: FC = () => {
     <div className="layout">
       <Router>
         <Switch>
-          <Route exact path="/">
-            <Main />
-          </Route>
-          {/* <Route path="/users">
-          <Users />
-        </Route> */}
+          <Route exact path="/" component={Main} />
+          <Route path="/:order" component={InnerCard} />
         </Switch>
       </Router>
     </div>

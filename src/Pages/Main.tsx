@@ -9,19 +9,27 @@ import { useHistory } from 'react-router-dom';
 export const Main = () => {
     const data: IDataItem[] = useStore(dataset)
     let history = useHistory();
-    const [sorted, changeSortState] = useState(false);
-console.log(sorted);
+    const [sorted, changeSortState] = useState<boolean>(false);
+    const [filterText, changeFilterText] = useState<string>("")
+
+    const sortByLibs = (data: IDataItem[], needToBeSorted: boolean) => {
+        if (!needToBeSorted) return data;
+        const newData = data.slice().sort((a: IDataItem, b: IDataItem) => b.libraries - a.libraries);
+        return newData;
+    }
 
     return <>
         <div className="settings">
-            <Input placeholder="Регион" type="text" />
+            <Input onChange={(e) => changeFilterText(e.target.value)} placeholder="Регион" type="text" />
             <div>
                 <label>Сортировка</label>
                 <Switch onChange={e => changeSortState(e)} />
             </div>
         </div>
         <main className="content-container">
-            {data.map((region: IDataItem) => {
+            {sortByLibs(data, sorted).filter((region: IDataItem) => {
+                return !filterText ? true : region.territory.replace(".", " ").match(filterText)
+            }).map((region: IDataItem) => {
                 return <Card
                     className="single-card"
                     hoverable
@@ -34,7 +42,6 @@ console.log(sorted);
                 >
                     <div className="libs-count">библиотек: {region.libraries}</div>
                 </Card>
-                // <div key={region.order}>{region.territory}</div>
             })}
         </main>
     </>
