@@ -9,6 +9,14 @@
     border: solid 1px rgb(211, 211, 211);
     z-index: 1;
     padding: 14px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    label {
+        margin-top: 16px;
+    }
 }
 
 .content-container {

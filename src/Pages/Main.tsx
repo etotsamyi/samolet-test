@@ -21,10 +21,8 @@ export const Main = () => {
     return <>
         <div className="settings">
             <Input onChange={(e) => changeFilterText(e.target.value)} placeholder="Регион" type="text" />
-            <div>
-                <label>Сортировка</label>
-                <Switch onChange={e => changeSortState(e)} />
-            </div>
+            <label>Сортировка</label>
+            <Switch onChange={e => changeSortState(e)} />
         </div>
         <main className="content-container">
             {sortByLibs(data, sorted).filter((region: IDataItem) => {
